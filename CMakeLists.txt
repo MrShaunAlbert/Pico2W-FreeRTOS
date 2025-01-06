@@ -7,6 +7,9 @@ include(${CMAKE_CURRENT_LIST_DIR}/pico-sdk/external/pico_sdk_import.cmake)
 project(Pico2W-FreeRTOS)
 pico_sdk_init()
 
+# Add the src directory
+add_subdirectory(src)
+
 # Add your executable
 add_executable(Pico2W-FreeRTOS main.c)
 
