@@ -6,6 +6,7 @@ sudo apt update
 sudo apt install gcc-arm-none-eabi cmake make pkg-config g++
 
 You should run the following before use of repo:
+git submodule update --init --recursive
 export PICO_SDK_PATH=$(pwd)/lib/pico-sdk
 export FREERTOS_PATH=$(pwd)/lib/FreeRTOS
 
