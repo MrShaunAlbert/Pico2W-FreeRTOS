@@ -1,33 +1,37 @@
 cmake_minimum_required(VERSION 3.13)
 
+# Set up the project name
+project(Pico2W-FreeRTOS)
+
 # Include the Pico SDK
 include(${CMAKE_CURRENT_LIST_DIR}/lib/pico-sdk/external/pico_sdk_import.cmake)
-
-# Set up the project
-project(Pico2W-FreeRTOS)
 pico_sdk_init()
+
+# Define the path to the FreeRTOS-Kernel
+set(FREERTOS_KERNEL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib/FreeRTOS-Kernel)
+
+# Add FreeRTOS source files
+set(FREERTOS_SOURCES
+	${FREERTOS_KERNEL_PATH}/list.c
+	${FREERTOS_KERNEL_PATH}/queue.c
+	${FREERTOS_KERNEL_PATH}/tasks.c
+	${FREERTOS_KERNEL_PATH}/timers.c
+	${FREERTOS_KERNEL_PATH}/event_groups.c
+	${FREERTOS_KERNEL_PATH}/portable/MemMang/heap_4.c
+	${FREERTOS_KERNEL_PATH}/portable/GCC/ARM_CM0/port.c
+)
 
 # Add the src directory to the include path
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib/FreeRTOS/FreeRTOS-Kernel/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib/FreeRTOS/FreeRTOS-Kernel/portable/GCC/ARM_CM0)
-
-# Specify the source files 
-file(GLOB FREERTOS_SRC
-	lib/FreeRTOS/FreeRTOS-Kernel/Source/*.c
-	lib/FreeRTOS/FreeRTOS-Kernel/Source/portable/GCC/ARM_CM0/*.c
-	lib/FreeRTOS/FreeRTOS-Kernel/Source/portable/MemMang/heap_4.c
-)
+include_directories(${FREERTOS_KERNEL_PATH}/include)
+include_directories(${FREERTOS_KERNEL_PATH}/portable/GCC/ARM_CM0)
 
 # Add the src directory
 add_subdirectory(src)
 
 # Add your executable
 add_executable(Pico2W-FreeRTOS src/main.c ${FREERTOS_SRC})
-
-# Include FreeRTOS
-target_include_directories(Pico2W-FreeRTOS PRIVATE ${CMAKE_CURRENT_LIST_DIR}/lib/FreeRTOS/FreeRTOS/Source/include)
-target_include_directories(Pico2W-FreeRTOS PRIVATE ${CMAKE_CURRENT_LIST_DIR}/lib/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM0)
+target_sources(${PROJECT_NAME} PRIVATE ${FREERTOS_SOURCES})
 
 # Link libraries
 target_link_libraries(Pico2W-FreeRTOS pico_stdlib)

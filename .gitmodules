@@ -7,3 +7,6 @@
 [submodule "lib/picotool"]
 	path = lib/picotool
 	url = https://github.com/raspberrypi/picotool.git
+[submodule "lib/FreeRTOS-Kernel"]
+	path = lib/FreeRTOS-Kernel
+	url = https://github.com/FreeRTOS/FreeRTOS-Kernel.git
