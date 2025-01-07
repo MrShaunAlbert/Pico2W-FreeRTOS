@@ -25,6 +25,11 @@
 #define configUSE_APPLICATION_TASK_TAG          0
 #define configUSE_COUNTING_SEMAPHORES           1
 #define configENABLE_MPU                        0
+#define configSUPPORT_DYNAMIC_ALLOCATION        1
+
+// Include functionality
+#define INCLUDE_vTaskDelay			1
+#define INCLUDE_xTaskCreate                     1
 
 // Cortex-M specific definitions
 #ifdef __NVIC_PRIO_BITS

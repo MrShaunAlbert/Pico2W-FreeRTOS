@@ -13,7 +13,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib/FreeRTOS/FreeRTOS-Kernel/inc
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib/FreeRTOS/FreeRTOS-Kernel/portable/GCC/ARM_CM0)
 
 # Specify the source files 
-file(GLOB FREERTOS_SRC lib/FreeRTOS/FreeRTOS-Kernel/Source/*.c lib/FreeRTOS/FreeRTOS-Kernel/Source/portable/MemMang/heap_4.c)
+file(GLOB FREERTOS_SRC
+	lib/FreeRTOS/FreeRTOS-Kernel/Source/*.c
+	lib/FreeRTOS/FreeRTOS-Kernel/Source/portable/GCC/ARM_CM0/*.c
+	lib/FreeRTOS/FreeRTOS-Kernel/Source/portable/MemMang/heap_4.c
+)
 
 # Add the src directory
 add_subdirectory(src)
@@ -23,8 +27,6 @@ add_executable(Pico2W-FreeRTOS src/main.c ${FREERTOS_SRC})
 
 # Include FreeRTOS
 target_include_directories(Pico2W-FreeRTOS PRIVATE ${CMAKE_CURRENT_LIST_DIR}/lib/FreeRTOS/FreeRTOS/Source/include)
-target_sources(Pico2W-FreeRTOS PRIVATE ${CMAKE_CURRENT_LIST_DIR}/lib/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c)
-target_sources(Pico2W-FreeRTOS PRIVATE ${CMAKE_CURRENT_LIST_DIR}/lib/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM0/port.c)
 target_include_directories(Pico2W-FreeRTOS PRIVATE ${CMAKE_CURRENT_LIST_DIR}/lib/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM0)
 
 # Link libraries
