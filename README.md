@@ -10,6 +10,14 @@ export PICO_SDK_PATH=$(pwd)/pico-sdk
 export FREERTOS_PATH=$(pwd)/FreeRTOS
 
 Steps to build and deploy:
+cd $PICO_SDK_PATH/tools/picotool
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+
+cd ../..
 mkdir build
 cd build
 cmake ..
